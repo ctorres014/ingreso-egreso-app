@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ingreEgresoApp';
+  title = 'app';
+  constructor(private _autService: AuthService) {
+    this._autService.initAuthListener();
+  }
 }
