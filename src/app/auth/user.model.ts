@@ -1,6 +1,14 @@
 export class User {
-    constructor(public nombre: string,
-                public email: string,
-                public uid: string) {
+    // private nombre: string;
+    // private email: string;
+    // private uid: string;
+
+    constructor(obj: DataObj) {
     }
+}
+
+interface DataObj {
+    nombre: string;
+    email: string;
+    uid: string;
 }

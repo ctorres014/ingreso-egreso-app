@@ -4,6 +4,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // Modules
 import { AppRouteingModule } from './app-routing.module';
+// NGRX
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // FireBase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -25,6 +29,7 @@ import { environment } from '../environments/environment';
 import { AuthGuardService } from './auth/auth-guard.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +49,13 @@ import { AuthGuardService } from './auth/auth-guard.service';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    StoreModule.forRoot(appReducers),
+    // Instrumentation must be imported after importing StoreModule (config is optional)
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    })
   ],
   providers: [ AuthService, AuthGuardService],
   bootstrap: [AppComponent]
