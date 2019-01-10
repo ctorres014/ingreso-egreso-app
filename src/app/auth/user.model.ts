@@ -1,9 +1,12 @@
 export class User {
-    // private nombre: string;
-    // private email: string;
-    // private uid: string;
+    public nombre: string;
+    public email: string;
+    public uid: string;
 
     constructor(obj: DataObj) {
+        this.nombre = obj && obj.nombre || null;
+        this.uid    = obj && obj.uid || null;
+        this.email  = obj && obj.email || null;
     }
 }
 

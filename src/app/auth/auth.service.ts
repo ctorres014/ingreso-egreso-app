@@ -27,6 +27,7 @@ export class AuthService {
               private store: Store<AppState>,
               private _router: Router) { }
   private userSubscription: Subscription = new Subscription();
+  private user: User;
 
   initAuthListener() {
     this.userSubscription = this.afAuth.authState.subscribe((fbUser: fireBase.User) => {
@@ -34,7 +35,7 @@ export class AuthService {
         this.afDB.doc(`${fbUser.uid}/usuario`).valueChanges()
                   .subscribe((usuarioObj: any) => {
                     const newUser = new User(usuarioObj);
-                    console.log(newUser);
+                    this.user = newUser;
                     this.store.dispatch(new SetUserAction(newUser));
                   });
       } else {
@@ -94,5 +95,10 @@ export class AuthService {
                     return fbUser != null;
                   })
                 );
+  }
+
+  getUsuario() {
+    return {...this.user}; // por medio de las propiedad de ECSCRIPT
+    // pasamos descomponemos el objeto en propidades y no lo pasamos por ref
   }
 }

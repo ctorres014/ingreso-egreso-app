@@ -1,7 +1,7 @@
 import { AuthService } from './auth/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Modules
 import { AppRouteingModule } from './app-routing.module';
 // NGRX
@@ -27,6 +27,10 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { environment } from '../environments/environment';
 // Services
 import { AuthGuardService } from './auth/auth-guard.service';
+import { OrdenIngresoEgresoPipe } from './ingreso-egreso/orden-ingreso-egreso.pipe';
+// Graficas
+import { ChartsModule } from 'ng2-charts';
+
 
 
 
@@ -41,12 +45,14 @@ import { AuthGuardService } from './auth/auth-guard.service';
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    OrdenIngresoEgresoPipe
   ],
   imports: [
     BrowserModule,
     AppRouteingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -55,7 +61,8 @@ import { AuthGuardService } from './auth/auth-guard.service';
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
-    })
+    }),
+    ChartsModule
   ],
   providers: [ AuthService, AuthGuardService],
   bootstrap: [AppComponent]
